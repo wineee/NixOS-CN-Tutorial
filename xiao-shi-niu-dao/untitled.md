@@ -10,7 +10,7 @@
 
 下面是使用 systemd-boot 的例子：
 
-```text
+```nix
  # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -18,7 +18,7 @@
 
 下面是使用 grub 的例子：
 
-```text
+```nix
  # Use GRand Unified Bootloader
   boot.loader = {
     efi.canTouchEfiVariables = true;
@@ -34,7 +34,7 @@
 
 ### 声音
 
-```text
+```nix
  # Enable sound.
   sound.enable = true;
   hardware.pulseaudio.enable = true;
