@@ -22,7 +22,7 @@
 
 欢迎 Nix\(OS\) 爱好者来帮忙完善。文档工作量比较大，并且我个人能力有限，非常需要你的帮助。
 
-文档托管在 gitbook 平台，联系我加入编辑团队：QQ：1758075541 Telegram:@rewine
+文档托管在 gitbook 平台，联系我: Telegram:t.me/rewine
 
 ### 版权声明
 
