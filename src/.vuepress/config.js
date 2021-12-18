@@ -42,8 +42,8 @@ module.exports = {
         link: '/config/'
       },
       {
-        text: 'NixOS 官网',
-        link: 'https://nixos.org'
+        text: 'VuePress',
+        link: 'https://v1.vuepress.vuejs.org'
       }
     ],
     sidebar: {

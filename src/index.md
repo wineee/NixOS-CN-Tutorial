@@ -1,7 +1,7 @@
 ---
 home: true
-heroImage: https://upload.wikimedia.org/wikipedia/commons/c/c4/NixOS_logo.svg
-tagline: Nix 中文指南
+heroImage: https://v1.vuepress.vuejs.org/hero.png
+tagline: Nix Tutorial
 actionText: Quick Start →
 actionLink: /guide/
 features:
