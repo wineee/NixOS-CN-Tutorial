@@ -1,0 +1,16 @@
+{
+  "name": "NixOS-CN-Tutorial",
+  "version": "1.0.0",
+  "description": "Nix 中文指南",
+  "main": "index.js",
+  "repository": "git@github.com:wineee/NixOS-CN-Tutorial.git",
+  "author": "rewine <lhongxu@outlook.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "vuepress": "^2.0.0-beta.29"
+  },
+  "scripts": {
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
+  }
+}
