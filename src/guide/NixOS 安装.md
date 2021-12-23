@@ -1,4 +1,4 @@
-# nixos 的安装教程
+# NixOS 的安装教程
 
 ## 制作启动盘 
 
@@ -16,10 +16,9 @@ u盘启动盘建议直接用 [ventoy](https://www.ventoy.net/cn/index.html) 配�
 
 > 在 live 系统中输入 nixos-help 或者点击桌面上的 NixOS Manual 打开帮助文档，按文档的提示操作
 
-{% hint style="info" %}
+::: tip
 在 live 系统中你可以无密码的使用 sudo，但不能用 su。
-{% endhint %}
-
+:::
 分区操作和安装其他的 linux 发行版时没有什么区别，这里按照 NixOS Manual 给出的步骤进行。
 
 分区方案因引导方式（ Legacy Boot 和 UEFI ）不同而有所区别， 比较新的电脑一般推荐使用 UEFI （CPT 分区表）方案。
@@ -28,31 +27,31 @@ u盘启动盘建议直接用 [ventoy](https://www.ventoy.net/cn/index.html) 配�
 
 1. 创建一份 GPT 分区表：
 
-   ```text
-   # parted /dev/sda -- mklabel gpt
+   ```bash
+   sudo parted /dev/sda -- mklabel gpt
    ```
 
 2. 添加 root 分区，它占据除了磁盘的末端外的空间（也就是交换分区所在地）。磁盘的前端需要留有 512 Mib 大的空间供给引导分区：
 
-   ```text
-   # parted /dev/sda -- mkpart primary 512MiB -8GiB
+   ```bash
+   sudo parted /dev/sda -- mkpart primary 512MiB -8GiB
    ```
 
 3. 添加交换分区。按需分配，示例中创建一个 8 GiB 大的：
 
-   ```text
-   # parted /dev/sda -- mkpart primary linux-swap -8GiB 100%
+   ```bash
+   sudo parted /dev/sda -- mkpart primary linux-swap -8GiB 100%
    ```
 
-{% hint style="info" %}
+::: tip
 交换分区大小一般为内存的0.5-2倍，桌面端一般比服务器的要小。如果内存足够大，也可以不设。
-{% endhint %}
+:::
 
     4. 添加引导分区。NixOS 默认 ESP（EFI 系统分区）作为`/boot`分区。先初始化磁盘前端大小为 512 MiB 的部分：
 
-```text
-# parted /dev/sda -- mkpart ESP fat32 1MiB 512MiB
-# parted /dev/sda -- set 3 boot on
+```bash
+sudo parted /dev/sda -- mkpart ESP fat32 1MiB 512MiB
+sudo parted /dev/sda -- set 3 boot on
 ```
 
 ### **Legacy Boot（MBR 分区表）**
@@ -64,19 +63,19 @@ u盘启动盘建议直接用 [ventoy](https://www.ventoy.net/cn/index.html) 配�
 1. 创建一份 MBR 分区表。
 
    ```text
-   # parted /dev/sda -- mklabel msdos
+   sudo parted /dev/sda -- mklabel msdos
    ```
 
 2. 添加 root 分区，它占据除了磁盘的末端外的空间（也就是交换分区所在地）。
 
    ```text
-   # parted /dev/sda -- mkpart primary 1MiB -8GiB
+   sudo parted /dev/sda -- mkpart primary 1MiB -8GiB
    ```
 
 3. 添加交换分区。按需分配，示例中创建了一个 8 GiB 大的：
 
    ```text
-   # parted /dev/sda -- mkpart primary linux-swap -8GiB 100%
+   sudo parted /dev/sda -- mkpart primary linux-swap -8GiB 100%
    ```
 
 之后进行格式化操作。
@@ -85,19 +84,19 @@ u盘启动盘建议直接用 [ventoy](https://www.ventoy.net/cn/index.html) 配�
 
 格式化为 Ext 4 分区。建议给文件系统一个有意义的标签（例子中是 nixos），它让文件系统配置独立于设备设置。像这样：
 
-* ```text
-  # mkfs.ext4 -L nixos /dev/sda1
+* ```bash
+  sudo mkfs.ext4 -L nixos /dev/sda1
   ```
 * 设置交换分区：
 
-  ```text
-  # mkswap -L swap /dev/sda2
+  ```bash
+  sudo mkswap -L swap /dev/sda2
   ```
 
 * 创建引导分区：（仅 UEFI 方案需要）
 
-  ```text
-  # mkfs.fat -F 32 -n boot /dev/sda3
+  ```bash
+  sudo mkfs.fat -F 32 -n boot /dev/sda3
   ```
 
 
@@ -106,46 +105,46 @@ u盘启动盘建议直接用 [ventoy](https://www.ventoy.net/cn/index.html) 配�
 
 ## 挂载
 
-{% hint style="info" %}
+::: tip
 如果安装完成后发现有重大错误，比如网络组件有问题，可以从这一步重新开始
-{% endhint %}
+:::
 
 1. 挂载将要安装 NixOS 的分区，例子是 /mnt：
 
-   ```text
-   # mount /dev/disk/by-label/nixos /mnt
+   ```bash
+   mount /dev/disk/by-label/nixos /mnt
    ```
 
 2. 挂载 boot 分区，例子是 /mnt/boot（仅 UEFI 方案需要）：
 
-   ```text
-   # mkdir -p /mnt/boot
-   # mount /dev/disk/by-label/boot /mnt/boot
+   ```bash
+   mkdir -p /mnt/boot
+   mount /dev/disk/by-label/boot /mnt/boot
    ```
 
 3. 激活交换分区：
 
-   ```text
-   # swapon /dev/sda2
+   ```bash
+   sudo swapon /dev/sda2
    ```
 
 ## 进行配置
 
 命令`nixos-generate-config`生成一份初始化配置文件：
 
-```text
-# nixos-generate-config -- root /mnt
+```bash
+nixos-generate-config -- root /mnt
 ```
 
 编辑它使其满足你的需求：
 
-```text
-# nano /mnt/etc/nixos/configuration.nix
+```bash
+nano /mnt/etc/nixos/configuration.nix
 ```
 
-{% hint style="info" %}
+::: tip
 这是最关键的一步，你的 configuration.nix 文件基本决定了你的系统是什么样子
-{% endhint %}
+:::
 
 请由于内容较多，请跳往下一章观看。
 
@@ -153,9 +152,9 @@ u盘启动盘建议直接用 [ventoy](https://www.ventoy.net/cn/index.html) 配�
 
 通过命令 `nixos-install` 完成安装与配置，如果执行成功，会让你设置root 用户密码。
 
-{% hint style="info" %}
+::: tip
 如果安装时无人值守，可以通过`nixos-install --no-root-passwd`来禁用需要密码的场景。
-{% endhint %}
+:::
 
 重启，进入系统后，新账户是不能进的，先登录 root 账户，用 passwd 给新账户设置密码。
 
