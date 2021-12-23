@@ -4,7 +4,7 @@ module.exports = {
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#title
    */
-  title: 'Vuepress Docs Boilerplate',
+  title: 'Nix 中文指南',
   /**
    * Ref：https://v1.vuepress.vuejs.org/config/#description
    */
@@ -34,7 +34,7 @@ module.exports = {
     lastUpdated: false,
     nav: [
       {
-        text: 'Guide',
+        text: '用户手册',
         link: '/guide/',
       },
       {
@@ -42,8 +42,8 @@ module.exports = {
         link: '/config/'
       },
       {
-        text: 'VuePress',
-        link: 'https://v1.vuepress.vuejs.org'
+        text: '官网',
+        link: 'https://nixos.org'
       }
     ],
     sidebar: {
