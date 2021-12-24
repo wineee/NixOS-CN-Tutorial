@@ -54,6 +54,7 @@ module.exports = {
           children: [
             '',
             'NixOS 安装',
+            '基础配置' 
           ]
         }
       ],
