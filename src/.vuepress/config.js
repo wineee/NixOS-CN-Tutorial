@@ -27,24 +27,31 @@ module.exports = {
    * ref：https://v1.vuepress.vuejs.org/theme/default-theme-config.html
    */
   themeConfig: {
-    repo: '',
-    editLinks: false,
-    docsDir: '',
-    editLinkText: '',
-    lastUpdated: false,
+    repo: 'https://github.com/wineee/NixOS-CN-Tutorial',
+    repoLabel: "查看源码",
+    docsBranch: "vuepress",
+    docsDir: "src",
+
+    editLinks: true,
+    editLinkText: "📝 编辑本文",
+
+    lastUpdated: "📑 最后更新",
+
+    smoothScroll: true,
+
     nav: [
       {
         text: '用户手册',
         link: '/guide/',
-      },
-      {
+      }
+      /*,{
         text: 'Config',
         link: '/config/'
       },
       {
         text: '官网',
         link: 'https://nixos.org'
-      }
+      }*/
     ],
     sidebar: {
       '/guide/': [
@@ -56,6 +63,7 @@ module.exports = {
             'NixOS 安装',
             '基础配置',
             '软件安装',
+            '常见问题',
             '参考资料'
           ]
         }
