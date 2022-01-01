@@ -6,13 +6,13 @@ actionText: Quick Start →
 actionLink: /guide/
 features:
 - title: 可复现
-  details: Nix builds packages in isolation from each other. This ensures that they are reproducible and don't have undeclared dependencies, so if a package works on one machine, it will also work on another.
+  details: Nix 所构建的包彼此隔离，这保证了它们是可复现的，并且不存在未声明的依赖。如果一个包可以在一台设备上运行，那么它也可以其他设备上运行。
 
 - title: 声明式
-  details: Nix makes it trivial to share development and build environments for your projects, regardless of what programming languages and tools you’re using.
+  details: 无论您使用何种编程语言和工具，Nix 都可以轻松地为您的项目共享开发环境和构建环境。
 
 - title: 高可靠
-  details: Nix ensures that installing or upgrading one package cannot break other packages. It allows you to roll back to previous versions, and ensures that no package is in an inconsistent state during an upgrade.
-  
+  details: Nix 确保安装或升级一个软件包不会破坏其他软件包。 它允许您回滚到以前的版本，并确保在升级过程中没有包处于不一致状态。
+    
 footer: Made by rewine with ❤️
 ---
