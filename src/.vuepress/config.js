@@ -42,7 +42,10 @@ module.exports = {
     nav: [
       {
         text: '用户手册',
-        link: '/guide/',
+        link: '/user_guide/',
+      }, {
+        text: '开发者手册',
+        link: '/developer_guide/',
       }
       /*,{
         text: 'Config',
@@ -54,7 +57,7 @@ module.exports = {
       }*/
     ],
     sidebar: {
-      '/guide/': [
+      '/user_guide/': [
         {
           title: 'Guide',
           collapsable: false,
@@ -65,6 +68,16 @@ module.exports = {
             '软件安装',
             '常见问题',
             '参考资料'
+          ]
+        }
+      ],
+            
+      '/developer_guide/' : [
+        {
+          title: 'developer guide',
+          collapsable: true,
+          children: [
+            ''
           ]
         }
       ],

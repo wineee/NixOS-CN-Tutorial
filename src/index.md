@@ -3,7 +3,7 @@ home: true
 heroImage: x207px-Home-nixos-logo.webp
 tagline: Nix Tutorial
 actionText: Quick Start →
-actionLink: /guide/
+actionLink: /user_guide/
 features:
 - title: 可复现
   details: Nix 所构建的包彼此隔离，这保证了它们是可复现的，并且不存在未声明的依赖。如果一个包可以在一台设备上运行，那么它也可以其他设备上运行。
