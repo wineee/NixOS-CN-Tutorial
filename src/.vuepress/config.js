@@ -60,7 +60,7 @@ module.exports = {
       '/user_guide/': [
         {
           title: 'Guide',
-          collapsable: false,
+          collapsable: true,
           children: [
             '',
             'NixOS 安装',
@@ -77,7 +77,8 @@ module.exports = {
           title: 'developer guide',
           collapsable: true,
           children: [
-            ''
+            '',
+            'rust-dev'
           ]
         }
       ],
