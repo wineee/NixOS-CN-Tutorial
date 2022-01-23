@@ -1,3 +1,28 @@
 # 开发者手册
 
 https://www.tweag.io/blog/2020-07-31-nixos-flakes/
+
+makeWrapper and wrapProgram
+Nix generally assumes run-time dependencies is a subset of the build-time dependencies.
+
+This means many Nix builder functions try to automatically scan the output for runtime dependencies and "rewrite" them for runtime usage.
+
+However shell scripts which are often exported by packages do not get this automatic scanning treatment.
+
+This means you have to use the makeWrapper package and use either the makeWrapper or wrapProgram utility functions.
+
+You may use them in the postFixup phase of a derivation:
+
+postFixup = ''
+  wrapProgram $out/bin/some-script \
+    --set PATH ${lib.makeBinPath [
+      coreutils
+      findutils
+      gnumake
+      gnused
+      gnugrep
+    ]}
+'';
+We use the lib.makeBinPath to compose paths from a number of derivation outputs.
+
+One should always try to use --set instead of --prefix because you shouldn't rely on the user profile environment variables.
