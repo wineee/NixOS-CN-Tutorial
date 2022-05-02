@@ -17,7 +17,7 @@ u盘启动盘建议直接用 [ventoy](https://www.ventoy.net/cn/index.html) 配�
 > 在 live 系统中输入 nixos-help 或者点击桌面上的 NixOS Manual 打开帮助文档，按文档的提示操作
 
 ::: tip
-在 live 系统中你可以无密码的使用 sudo，但不能用 su。
+在 live 系统中你可以无密码的使用 sudo，但不能用 su。由于安装系统需要大量 root 权限的操作，推荐用 sudo -i 获取 root 权限。
 :::
 分区操作和安装其他的 linux 发行版时没有什么区别，这里按照 NixOS Manual 给出的步骤进行。
 
@@ -28,19 +28,19 @@ u盘启动盘建议直接用 [ventoy](https://www.ventoy.net/cn/index.html) 配�
 1. 创建一份 GPT 分区表：
 
    ```bash
-   sudo parted /dev/sda -- mklabel gpt
+   parted /dev/sda -- mklabel gpt
    ```
 
 2. 添加 root 分区，它占据除了磁盘的末端外的空间（也就是交换分区所在地）。磁盘的前端需要留有 512 Mib 大的空间供给引导分区：
 
    ```bash
-   sudo parted /dev/sda -- mkpart primary 512MiB -8GiB
+   parted /dev/sda -- mkpart primary 512MiB -8GiB
    ```
 
 3. 添加交换分区。按需分配，示例中创建一个 8 GiB 大的：
 
    ```bash
-   sudo parted /dev/sda -- mkpart primary linux-swap -8GiB 100%
+   parted /dev/sda -- mkpart primary linux-swap -8GiB 100%
    ```
 
 ::: tip
@@ -50,8 +50,8 @@ u盘启动盘建议直接用 [ventoy](https://www.ventoy.net/cn/index.html) 配�
 4. 添加引导分区。NixOS 默认 ESP（EFI 系统分区）作为`/boot`分区。先初始化磁盘前端大小为 512 MiB 的部分：
 
    ```bash
-   sudo parted /dev/sda -- mkpart ESP fat32 1MiB 512MiB
-   sudo parted /dev/sda -- set 3 boot on
+   parted /dev/sda -- mkpart ESP fat32 1MiB 512MiB
+   parted /dev/sda -- set 3 boot on
    ```
 
 ### **Legacy Boot（MBR 分区表）**
@@ -62,45 +62,44 @@ u盘启动盘建议直接用 [ventoy](https://www.ventoy.net/cn/index.html) 配�
 
 1. 创建一份 MBR 分区表。
 
-   ```text
-   sudo parted /dev/sda -- mklabel msdos
+   ```bash
+   parted /dev/sda -- mklabel msdos
    ```
 
 2. 添加 root 分区，它占据除了磁盘的末端外的空间（也就是交换分区所在地）。
 
-   ```text
-   sudo parted /dev/sda -- mkpart primary 1MiB -8GiB
+   ```bash
+   parted /dev/sda -- mkpart primary 1MiB -8GiB
    ```
 
 3. 添加交换分区。按需分配，示例中创建了一个 8 GiB 大的：
 
-   ```text
-   sudo parted /dev/sda -- mkpart primary linux-swap -8GiB 100%
+   ```bash
+   parted /dev/sda -- mkpart primary linux-swap -8GiB 100%
    ```
 
 之后进行格式化操作。
 
 ### 格式化 
 
-格式化为 Ext 4 分区。建议给文件系统一个有意义的标签（例子中是 nixos），它让文件系统配置独立于设备设置。像这样：
+* 格式化为 Ext 4 分区。建议给文件系统一个有意义的标签（例子中是 nixos），它让文件系统配置独立于设备设置。像这样：
 
-  ```bash
-  sudo mkfs.ext4 -L nixos /dev/sda1
-  ```
+   ```bash
+   mkfs.ext4 -L nixos /dev/sda1
+   ```
 
 * 设置交换分区：
 
   ```bash
-  sudo mkswap -L swap /dev/sda2
+  mkswap -L swap /dev/sda2
   ```
 
 * 创建引导分区：（仅 UEFI 方案需要）
 
   ```bash
-  sudo mkfs.fat -F 32 -n boot /dev/sda3
+  mkfs.fat -F 32 -n boot /dev/sda3
   ```
 
-编写配置文件 挂载将要安装 NixOS 的文件系统： sudo mount /dev/disk/by-label/nixos /mnt 1 挂载引导文件系统： sudo mkdir -p /mnt/boot sudo mount /dev/disk/by-label/boot /mnt/boot 1 2 设置交换分区 sudo swapon /dev/sda2 1 如果安装出错了，再次进入live系统，只要mount一下，改配置就行
 
 ## 挂载
 
@@ -124,7 +123,7 @@ u盘启动盘建议直接用 [ventoy](https://www.ventoy.net/cn/index.html) 配�
 3. 激活交换分区：
 
    ```bash
-   sudo swapon /dev/sda2
+   swapon /dev/sda2
    ```
 
 ## 进行配置
@@ -157,4 +156,4 @@ nano /mnt/etc/nixos/configuration.nix
 
 重启，进入系统后，新账户是不能进的，先登录 root 账户，用 passwd 给新账户设置密码。
 
-在安装好的系统中更改配置文件后用nixos-rebuild switch应用。如果网络配置有有问题，要回到 live 系统联网下载软件，用的还是 `nixos-install`命令，而不是 `nix-rebuild`。
+在安装好的系统中更改配置文件后用nixos-rebuild switch应用。如果网络配置有有问题，要回到 live 系统联网下载软件，用的还是 `nixos-install`命令，而不是 `nixos-rebuild`。
