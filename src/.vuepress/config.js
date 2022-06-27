@@ -68,7 +68,8 @@ module.exports = {
             '软件安装',
             '常见问题',
             '参考资料',
-            '使用 Flake 配置'
+            '使用 Flake 配置',
+            'home-manager'
           ]
         }
       ],
