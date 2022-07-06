@@ -26,3 +26,17 @@ postFixup = ''
 We use the lib.makeBinPath to compose paths from a number of derivation outputs.
 
 One should always try to use --set instead of --prefix because you shouldn't rely on the user profile environment variables.
+
+
+### doesn't represent an absolute path
+文件使用相对路径不要加括号
+
+```nix
+  # Import paths must be absolute. Path literals
+  # are automatically resolved, so this is fine.
+  (import ./foo.nix)
+
+  # But this does not happen with strings.
+  (import "./foo.nix")
+  #=> error: string ‘foo.nix’ doesn't represent an absolute path
+```
