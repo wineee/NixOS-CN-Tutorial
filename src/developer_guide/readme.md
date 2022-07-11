@@ -40,3 +40,11 @@ One should always try to use --set instead of --prefix because you shouldn't rel
   (import "./foo.nix")
   #=> error: string ‘foo.nix’ doesn't represent an absolute path
 ```
+
+
+```
+pkgs/desktops/mate/caja-extensions/default.nix
+
+substituteInPlace open-terminal/caja-open-terminal.c --subst-var-by \
+      GSETTINGS_PATH ${glib.makeSchemaPath "$out" "${pname}-${version}"}
+```
