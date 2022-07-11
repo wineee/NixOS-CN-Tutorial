@@ -48,3 +48,13 @@ pkgs/desktops/mate/caja-extensions/default.nix
 substituteInPlace open-terminal/caja-open-terminal.c --subst-var-by \
       GSETTINGS_PATH ${glib.makeSchemaPath "$out" "${pname}-${version}"}
 ```
+```
+  # postInstall = ''
+  #   glib-compile-schemas "$out/share/glib-2.0/schemas"
+  # '';
+
+  preFixup = ''
+    glib-compile-schemas ${glib.makeSchemaPath "$out" "${pname}-${version}"}
+    qtWrapperArgs+=("''${gappsWrapperArgs[@]}")
+  '';
+```
