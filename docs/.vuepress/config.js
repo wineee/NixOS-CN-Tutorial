@@ -78,6 +78,11 @@ module.exports = {
     }
   },
 
+  markdown: {
+    plugins: {
+      '@centerforopenscience/markdown-it-video': {}
+    }
+  },
   /**
    * Apply plugins，ref：https://v1.vuepress.vuejs.org/zh/plugin/
    */

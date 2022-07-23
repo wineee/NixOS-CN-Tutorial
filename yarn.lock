@@ -935,6 +935,11 @@
     "@babel/helper-validator-identifier" "^7.18.6"
     to-fast-properties "^2.0.0"
 
+"@centerforopenscience/markdown-it-video@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.npmmirror.com/@centerforopenscience/markdown-it-video/-/markdown-it-video-1.0.0.tgz#4c1ab932ccb25c17a8992daa12168d0aea622664"
+  integrity sha512-6TOHqcRy7eg09aCcXLYCvLk87eMuFB8P1rBonpjJPcz++FQdEL5834c1Vq8vCePabKY2Scg3DNagRIblagXjXg==
+
 "@jridgewell/gen-mapping@^0.1.0":
   version "0.1.1"
   resolved "https://registry.npmmirror.com/@jridgewell/gen-mapping/-/gen-mapping-0.1.1.tgz#e5d2e450306a9491e3bd77e323e38d7aff315996"
