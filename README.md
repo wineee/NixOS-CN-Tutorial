@@ -3,5 +3,5 @@
 ```bash 
 git clone git@github.com:wineee/NixOS-CN-Tutorial.git
 yarn install
-yarn dev
+yarn docs:dev
 ```
