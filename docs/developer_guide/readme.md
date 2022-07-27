@@ -1,5 +1,16 @@
 # 开发者手册
 
+特殊路径
+
+## pkg/share/xsessions/
+
+xxx.desktop
+打包中添加
+passthru.providedSessions = [ "deepin" ];
+模块中添加
+services.xserver.displayManager.sessionPackages = [ packages.startdde ];
+
+
 https://www.tweag.io/blog/2020-07-31-nixos-flakes/
 
 makeWrapper and wrapProgram
