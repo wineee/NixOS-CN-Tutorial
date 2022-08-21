@@ -53,6 +53,8 @@
 }
 ```
 
+https://github.com/nix-community/home-manager/issues/2848
+
 ## 使用 flake
 
 ```nix
